@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+  <data>
+
+    <record id="hr_payroll.BASIC" model="hr.salary.rule.category">
+      <field name="name">基本工资</field>
+      <field name="code">BASIC</field>
+    </record>
+
+    <record id="hr_payroll.ALW" model="hr.salary.rule.category">
+      <!--津贴-->
+      <field name="name">津贴</field>
+      <field name="code">ALW</field>
+    </record>
+
+    <record id="hr_payroll.GROSS" model="hr.salary.rule.category">
+      <!--总额,扣除之前的-->
+      <field name="name">应发</field>
+      <field name="code">GROSS</field>
+    </record>
+
+    <record id="hr_payroll.DED" model="hr.salary.rule.category">
+      <!--扣除的-->
+      <field name="name">扣除</field>
+      <field name="code">DED</field>
+    </record>
+
+    <record id="hr_payroll.NET" model="hr.salary.rule.category">
+      <!--合计-->
+      <field name="name">实发</field>
+      <field name="code">NET</field>
+    </record>
+
+    <record id="hr_payroll.hr_rule_basic" model="hr.salary.rule">
+      <field name="name">基本工资</field>
+      <field name="sequence" eval="1"/>
+      <field name="code">BASIC</field>
+      <field name="category_id" ref="hr_payroll.BASIC"/>
+      <field name="condition_select">none</field>
+      <field name="amount_select">code</field>
+      <field name="amount_python_compute">result = contract.wage</field>
+    </record>
+
+    <record id="hr_payroll.hr_rule_taxable" model="hr.salary.rule">
+      <field name="name">应发合计</field>
+      <field name="sequence" eval="100"/>
+      <field name="code">GROSS</field>
+      <field name="category_id" ref="hr_payroll.GROSS"/>
+      <field name="condition_select">none</field>
+      <field name="amount_select">code</field>
+      <field name="amount_python_compute">result = categories.BASIC + categories.ALW</field>
+    </record>
+
+    <record id="hr_payroll.hr_rule_net" model="hr.salary.rule">
+      <field name="name">实发</field>
+      <field name="sequence" eval="200"/>
+      <field name="code">NET</field>
+      <field name="category_id" ref="hr_payroll.NET"/>
+      <field name="condition_select">none</field>
+      <field name="amount_select">code</field>
+      <field name="amount_python_compute">result = categories.BASIC + categories.ALW - categories.DED</field>
+    </record>
+
+
+
+    <!-- Salary Rules -->
+    <!--津贴-->
+    <record id="hr_salary_rule_alw" model="hr.salary.rule">
+      <field name="name">津贴合计</field>
+      <field name="sequence" eval="100"/>
+      <field name="code">ALW</field>
+      <field name="category_id" ref="hr_payroll.ALW"/>
+      <field name="condition_select">none</field>
+      <field name="amount_select">code</field>
+      <field name="amount_python_compute">result = inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(worked_days.number_of_days - inputs.TRAIL_DAYS.amount)*contract.wage/31 + inputs.WORK_PRIZE.amount +inputs.PRP.amount + inputs.OT.amount*contract.wage/31 + inputs.DC.amount + inputs.CC.amount +inputs.OS.amount</field>
+    </record>
+
+    <!--定义Input-->
+
+    <!--工龄工资-->
+    <record id='hr_rule_input_year_salary' model='hr.rule.input'>
+      <field name='name'>工龄工资</field>
+      <field name='code'>YEAR_SALARY</field>
+      <field name='input_id' ref='hr_salary_rule_alw' />
+    </record>
+    <!--试用天数-->
+    <record id='hr_rule_input_trail_days' model='hr.rule.input'>
+      <field name='name'>试用天数</field>
+      <field name='code'>TRAIL_DAYS</field>
+      <field name='input_id' ref='hr_salary_rule_alw' />
+    </record>
+
+    <!--实勤天数,使用workdaays-->
+    <!--全勤奖金-->
+    <record id='hr_rule_input_work_prize' model='hr.rule.input'>
+      <field name='name'>全勤奖金</field>
+      <field name='code'>WORK_PRIZE</field>
+      <field name='input_id' ref='hr_salary_rule_alw' />
+    </record>
+
+    <!--绩效工资-->
+    <record id='hr_rule_input_prp' model='hr.rule.input'>
+      <field name='name'>绩效工资</field>
+      <field name='code'>PRP</field>
+      <field name='input_id' ref='hr_salary_rule_alw' />
+    </record>
+
+
+    <!--加班天数-->
+    <record id='hr_rule_input_overtime_days' model='hr.rule.input'>
+      <field name='name'>加班天数</field>
+      <field name='code'>OT</field>
+      <field name='input_id' ref='hr_salary_rule_alw' />
+    </record>
+
+
+    <!--酒水提成-->
+    <record id='hr_rule_input_drinks_commission' model='hr.rule.input'>
+      <field name='name'>酒水提成</field>
+      <field name='code'>DC</field>
+      <field name='input_id' ref='hr_salary_rule_alw' />
+    </record>
+
+
+    <!--办卡提成-->
+    <record id='hr_rule_input_card_commission' model='hr.rule.input'>
+      <field name='name'>办卡提成</field>
+      <field name='code'>CC</field>
+      <field name='input_id' ref='hr_salary_rule_alw' />
+    </record>
+
+    <!--再次分配-->
+    <record id='hr_rule_input_re_alloc' model='hr.rule.input'>
+      <field name='name'>再次分配</field>
+      <field name='code'>RL</field>
+      <field name='input_id' ref='hr_salary_rule_alw' />
+    </record>
+
+    <!--其他奖励-->
+    <record id='hr_rule_input_other' model='hr.rule.input'>
+      <field name='name'>其他奖励</field>
+      <field name='code'>OS</field>
+      <field name='input_id' ref='hr_salary_rule_alw' />
+    </record>
+
+    <!--扣除项目-->
+    <record id="hr_salary_rule_ded" model="hr.salary.rule">
+      <field name="name">扣除合计</field>
+      <field name="sequence" eval="100"/>
+      <field name="code">DED</field>
+      <field name="category_id" ref="hr_payroll.DED"/>
+      <field name="condition_select">none</field>
+      <field name="amount_select">code</field>
+      <field name="amount_python_compute">result = (inputs.LATE.amount + inputs.NO_SIGN.amount)*5 +inputs.ABSENT_DAYS.amount*3*contract.wage/31 + inputs.LEAVE_DAYS.amount*contract.wage/31 +inputs.PUNISH_FEE.amount + inputs.CLOTH_FEE.amount + inputs.CLASS_FEE.amount + inputs.OTHER_DED.amount</field>
+    </record>
+
+    <!--迟到早退-->
+    <record id='hr_rule_input_late' model='hr.rule.input'>
+      <field name='name'>迟到早退</field>
+      <field name='code'>LATE</field>
+      <field name='input_id' ref='hr_salary_rule_ded' />
+    </record>
+
+
+    <!--未刷卡数-->
+    <record id='hr_rule_input_no_sign' model='hr.rule.input'>
+      <field name='name'>未刷卡数</field>
+      <field name='code'>NO_SIGN</field>
+      <field name='input_id' ref='hr_salary_rule_ded' />
+    </record>
+
+
+    <!--旷工天数-->
+    <record id='hr_rule_input_absent_days' model='hr.rule.input'>
+      <field name='name'>旷工天数</field>
+      <field name='code'>ABSENT_DAYS</field>
+      <field name='input_id' ref='hr_salary_rule_ded' />
+    </record>
+
+
+    <!--请假天数-->
+    <record id='hr_rule_input_leave_days' model='hr.rule.input'>
+      <field name='name'>请假天数</field>
+      <field name='code'>LEAVE_DAYS</field>
+      <field name='input_id' ref='hr_salary_rule_ded' />
+    </record>
+
+
+    <!--罚单扣除-->
+    <record id='hr_rule_input_punish_fee' model='hr.rule.input'>
+      <field name='name'>罚单扣除</field>
+      <field name='code'>PUNISH_FEE</field>
+      <field name='input_id' ref='hr_salary_rule_ded' />
+    </record>
+
+
+    <!--工装扣除-->
+    <record id='hr_rule_input_cloth_fee' model='hr.rule.input'>
+      <field name='name'>工装扣除</field>
+      <field name='code'>CLOTH_FEE</field>
+      <field name='input_id' ref='hr_salary_rule_ded' />
+    </record>
+
+
+    <!--班基金扣-->
+    <record id='hr_rule_input_class_fee' model='hr.rule.input'>
+      <field name='name'>班基金扣</field>
+      <field name='code'>CLASS_FEE</field>
+      <field name='input_id' ref='hr_salary_rule_ded' />
+    </record>
+
+
+    <!--其他扣除-->
+    <record id='hr_rule_input_other_ded' model='hr.rule.input'>
+      <field name='name'>其他扣除</field>
+      <field name='code'>OTHER_DED</field>
+      <field name='input_id' ref='hr_salary_rule_ded' />
+    </record>
+
+    <!-- Salary Structure -->
+
+    <record id="hr_payroll.structure_base" model="hr.payroll.structure">
+      <field name="code">BASE</field>
+      <field name="name">工资结构</field>
+      <field eval="[(6, 0, [ref('hr_payroll.hr_rule_basic'), ref('hr_salary_rule_alw'), ref('hr_payroll.hr_rule_taxable'),ref('hr_salary_rule_ded'),ref('hr_payroll.hr_rule_net')])]" name="rule_ids"/>
+      <field name="company_id" ref="base.main_company"/>
+    </record>
+ 
+  </data>
+</openerp>

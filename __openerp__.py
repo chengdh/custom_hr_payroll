@@ -10,19 +10,13 @@
     'license': 'AGPL-3',
     'depends': ['hr_payroll', 'web'],
     'init_xml': [],
-    'update_xml': [],
+    'update_xml': ['data.xml'],
     'demo_xml': [],
     'active': False,
     'installable': True,
     'web':True,
-    'css': [
-        'static/css/custom_hr_payroll.css',
-    ],
-    'js': [
-        'static/js/custom_hr_payroll.js',
-    ],
-    'xml': [
-        'static/xml/custom_hr_payroll.xml',
-    ],
+    'css': [],
+    'js': [],
+    'xml': [],
 }
 
