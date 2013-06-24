@@ -41,26 +41,6 @@
       <field name="amount_python_compute">result = contract.wage</field>
     </record>
 
-    <record id="hr_payroll.hr_rule_taxable" model="hr.salary.rule">
-      <field name="name">应发合计</field>
-      <field name="sequence" eval="100"/>
-      <field name="code">GROSS</field>
-      <field name="category_id" ref="hr_payroll.GROSS"/>
-      <field name="condition_select">none</field>
-      <field name="amount_select">code</field>
-      <field name="amount_python_compute">result = categories.BASIC + categories.ALW</field>
-    </record>
-
-    <record id="hr_payroll.hr_rule_net" model="hr.salary.rule">
-      <field name="name">实发</field>
-      <field name="sequence" eval="200"/>
-      <field name="code">NET</field>
-      <field name="category_id" ref="hr_payroll.NET"/>
-      <field name="condition_select">none</field>
-      <field name="amount_select">code</field>
-      <field name="amount_python_compute">result = categories.BASIC + categories.ALW - categories.DED</field>
-    </record>
-
 
 
     <!-- Salary Rules -->
@@ -143,10 +123,21 @@
       <field name='input_id' ref='hr_salary_rule_alw' />
     </record>
 
+    <record id="hr_payroll.hr_rule_taxable" model="hr.salary.rule">
+      <field name="name">应发合计</field>
+      <field name="sequence" eval="200"/>
+      <field name="code">GROSS</field>
+      <field name="category_id" ref="hr_payroll.GROSS"/>
+      <field name="condition_select">none</field>
+      <field name="amount_select">code</field>
+      <field name="amount_python_compute">result = categories.BASIC + categories.ALW</field>
+    </record>
+
+
     <!--扣除项目-->
     <record id="hr_salary_rule_ded" model="hr.salary.rule">
       <field name="name">扣除合计</field>
-      <field name="sequence" eval="100"/>
+      <field name="sequence" eval="300"/>
       <field name="code">DED</field>
       <field name="category_id" ref="hr_payroll.DED"/>
       <field name="condition_select">none</field>
@@ -216,6 +207,16 @@
       <field name='code'>OTHER_DED</field>
       <field name='input_id' ref='hr_salary_rule_ded' />
     </record>
+    <record id="hr_payroll.hr_rule_net" model="hr.salary.rule">
+      <field name="name">实发</field>
+      <field name="sequence" eval="400"/>
+      <field name="code">NET</field>
+      <field name="category_id" ref="hr_payroll.NET"/>
+      <field name="condition_select">none</field>
+      <field name="amount_select">code</field>
+      <field name="amount_python_compute">result = categories.BASIC + categories.ALW - categories.DED</field>
+    </record>
+
 
     <!-- Salary Structure -->
 
@@ -225,6 +226,5 @@
       <field eval="[(6, 0, [ref('hr_payroll.hr_rule_basic'), ref('hr_salary_rule_alw'), ref('hr_payroll.hr_rule_taxable'),ref('hr_salary_rule_ded'),ref('hr_payroll.hr_rule_net')])]" name="rule_ids"/>
       <field name="company_id" ref="base.main_company"/>
     </record>
- 
   </data>
 </openerp>
