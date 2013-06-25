@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+      <!--导出到excel-->
+      <report id="report_hr_payslip_run_excel" model="hr.payslip.run"
+        name="hr.payroll.payslip.run.xls" file="custom_hr_payroll/report/hr_payslip_run.mako"
+        usage="default" string="导出到excel" report_type='mako2html' header='0' />
+    </data>
+</openerp>

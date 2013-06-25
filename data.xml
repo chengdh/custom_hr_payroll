@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <openerp>
   <data>
-
     <record id="hr_payroll.BASIC" model="hr.salary.rule.category">
       <field name="name">基本工资</field>
       <field name="code">BASIC</field>
@@ -219,7 +218,6 @@
 
 
     <!-- Salary Structure -->
-
     <record id="hr_payroll.structure_base" model="hr.payroll.structure">
       <field name="code">BASE</field>
       <field name="name">工资结构</field>
