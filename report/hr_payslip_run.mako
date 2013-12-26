@@ -105,6 +105,5 @@
     <td colspan='11'>总经理:</td>
     </tr>
   </tfoot>
-
 </table>
 %endfor
