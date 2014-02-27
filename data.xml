@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <openerp>
-  <data>
+  <data noupdate="0">
     <record id="hr_payroll.BASIC" model="hr.salary.rule.category">
       <field name="name">基本工资</field>
       <field name="code">BASIC</field>
@@ -51,10 +51,16 @@
       <field name="category_id" ref="hr_payroll.ALW"/>
       <field name="condition_select">none</field>
       <field name="amount_select">code</field>
-      <field name="amount_python_compute">result = inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(worked_days.number_of_days - inputs.TRAIL_DAYS.amount)*contract.wage/31 + inputs.WORK_PRIZE.amount +inputs.PRP.amount + inputs.OT.amount*contract.wage/31 + inputs.DC.amount + inputs.CC.amount +inputs.OS.amount</field>
+      <field name="amount_python_compute">result = inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(inputs.WORKED_DAYS.amount - inputs.TRAIL_DAYS.amount)*contract.wage/30 + inputs.WORK_PRIZE.amount +inputs.PRP.amount + inputs.OT.amount*contract.wage/30 + inputs.DC.amount + inputs.CC.amount +inputs.OS.amount</field>
     </record>
 
     <!--定义Input-->
+    <!--工作天数-->
+    <record id='hr_rule_input_worked_days' model='hr.rule.input'>
+      <field name='name'>工作天数</field>
+      <field name='code'>WORKED_DAYS</field>
+      <field name='input_id' ref='hr_salary_rule_alw' />
+    </record>
 
     <!--工龄工资-->
     <record id='hr_rule_input_year_salary' model='hr.rule.input'>
@@ -141,7 +147,7 @@
       <field name="category_id" ref="hr_payroll.DED"/>
       <field name="condition_select">none</field>
       <field name="amount_select">code</field>
-      <field name="amount_python_compute">result = (inputs.LATE.amount + inputs.NO_SIGN.amount)*5 +inputs.ABSENT_DAYS.amount*3*contract.wage/31 + inputs.LEAVE_DAYS.amount*contract.wage/31 +inputs.PUNISH_FEE.amount + inputs.CLOTH_FEE.amount + inputs.CLASS_FEE.amount + inputs.OTHER_DED.amount</field>
+      <field name="amount_python_compute">result = (inputs.LATE.amount + inputs.NO_SIGN.amount)*5 +inputs.ABSENT_DAYS.amount*3*contract.wage/30 + inputs.LEAVE_DAYS.amount*contract.wage/30 +inputs.PUNISH_FEE.amount + inputs.CLOTH_FEE.amount + inputs.CLASS_FEE.amount + inputs.OTHER_DED.amount</field>
     </record>
 
     <!--迟到早退-->
