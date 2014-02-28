@@ -68,6 +68,9 @@ class hr_payslip(osv.osv):
     #其他奖励
     "os" : fields.function(_cal_salary_detail,method=True,multi='detail',string="其他奖励",type='float',digits=(10,2)),
     "os_input" : fields.float(string="其他奖励",digits=(10,2)),
+    #岗位津贴
+    "job" : fields.function(_cal_salary_detail,method=True,multi='detail',string="岗位津贴",type='float',digits=(10,2)),
+    "job_input" : fields.float(string="岗位津贴",digits=(10,2)),
     #津贴合计
     "alw" : fields.function(_cal_salary_detail,method=True,multi='detail',string="津贴合计",type='float',digits=(10,2)),
     "alw_disp" : fields.float(string="津贴合计",digits=(10,2)),
@@ -127,6 +130,9 @@ class hr_payslip(osv.osv):
     "rl_input" : 0,
     #其他奖励
     "os_input" : 0,
+    #岗位津贴
+    "job_input" : 0,
+
     "late_input" : 0,
     #未刷卡数
     "no_sign_input" : 0, 
