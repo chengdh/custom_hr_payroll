@@ -148,9 +148,6 @@ class hr_payslip(osv.osv):
 
   def  on_change_input(self,cr,uid,ids,input_code,input_val,context=None):
     input_line_pool = self.pool.get("hr.payslip.input")
-    if not input_code :
-      return {}
-
     #根据传入的input_code,更新payslip_line中对应的input值
     for pslip in self.browse(cr,uid,ids,context):
       for l in pslip.input_line_ids:
