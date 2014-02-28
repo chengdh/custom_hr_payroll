@@ -34,6 +34,8 @@ class hr_payslip(osv.osv):
 
 
   _columns = {
+    #员工职务
+    'job_id': fields.related('employee_id','job_id',type="many2one",relation="hr.job",string="职位",store=False),
     #基本工资
     "basic" : fields.function(_cal_salary_detail,method=True,multi='detail',string="基本工资",type='float',digits=(10,2)),
     #工龄工资

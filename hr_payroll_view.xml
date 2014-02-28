@@ -10,6 +10,7 @@
         <tree position='replace'>
           <tree colors="blue:state in ('confirm','hr_check','accont_check');black:state == 'new';gray:state == 'cancel'" string="Payslips" editable="top">
             <field name="employee_id"/>
+            <field name="job_id"/>
             <field name="basic" sum='Total Basic'/>
             <field name="year_salary_input" on_change="on_change_input('year_salary',year_salary_input)"/>
             <field name="trail_days_input" on_change="on_change_input('trail_days',trail_days_input)"/>
@@ -20,6 +21,7 @@
             <field name="cc_input" on_change="on_change_input('cc',cc_input)" sum="cc_input"/>
             <field name="rl_input" on_change="on_change_input('rl',rl_input)" sum="rl_input"/>
             <field name="os_input" on_change="on_change_input('os',os_input)" sum="os_input"/>
+            <field name="work_prize_input" on_change="on_change_input('work_prize',work_prize_input)" sum="work_prize_input"/>
             <field name="alw_disp" sum='alw_disp'/>
             <field name="gross_disp" sum="gross_disp"/>
             <field name="late_input" on_change="on_change_input('late',late_input)" sum="late_input"/>
@@ -29,6 +31,7 @@
             <field name="cloth_fee_input" on_change="on_change_input('cloth_fee',cloth_fee_input)" sum="cloth_fee_input"/>
             <field name="class_fee_input" on_change="on_change_input('class_fee',class_fee_input)" sum="class_fee_input"/>
             <field name="other_ded_input" on_change="on_change_input('other_ded',other_ded_input)" sum="other_ded_input"/>
+            <field name="punish_fee_input" on_change="on_change_input('punish_fee',punish_fee_input)" sum="punish_fee_input"/>
             <field name="ded_disp" sum='ded_disp'/>
             <field name="net_disp" sum='net_disp' />
             <field name="state" invisible="1"/>
