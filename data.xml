@@ -51,7 +51,7 @@
       <field name="category_id" ref="hr_payroll.ALW"/>
       <field name="condition_select">none</field>
       <field name="amount_select">code</field>
-      <field name="amount_python_compute">result = inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(inputs.WORKED_DAYS.amount - inputs.TRAIL_DAYS.amount)*contract.wage/30 + inputs.WORK_PRIZE.amount +inputs.PRP.amount + inputs.OT.amount*contract.wage/30 + inputs.DC.amount + inputs.CC.amount +inputs.OS.amount</field>
+      <field name="amount_python_compute">result = inputs.WORK_PRIZE.amount +inputs.PRP.amount + inputs.OT.amount*contract.wage/30 + inputs.DC.amount + inputs.CC.amount +inputs.OS.amount</field>
     </record>
 
     <!--定义Input-->
@@ -135,7 +135,7 @@
       <field name="category_id" ref="hr_payroll.GROSS"/>
       <field name="condition_select">none</field>
       <field name="amount_select">code</field>
-      <field name="amount_python_compute">result = categories.BASIC + categories.ALW</field>
+      <field name="amount_python_compute">result = inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(inputs.WORKED_DAYS.amount - inputs.TRAIL_DAYS.amount)*contract.wage/30 +  categories.ALW</field>
     </record>
 
 
@@ -219,7 +219,7 @@
       <field name="category_id" ref="hr_payroll.NET"/>
       <field name="condition_select">none</field>
       <field name="amount_select">code</field>
-      <field name="amount_python_compute">result = categories.ALW - categories.DED</field>
+      <field name="amount_python_compute">result =  categories.GROSS - categories.DED</field>
     </record>
 
 
