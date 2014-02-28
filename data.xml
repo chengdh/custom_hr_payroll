@@ -219,7 +219,7 @@
       <field name="category_id" ref="hr_payroll.NET"/>
       <field name="condition_select">none</field>
       <field name="amount_select">code</field>
-      <field name="amount_python_compute">result = categories.BASIC + categories.ALW - categories.DED</field>
+      <field name="amount_python_compute">result = categories.ALW - categories.DED</field>
     </record>
 
 
