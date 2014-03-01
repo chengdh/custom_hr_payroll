@@ -6,4 +6,4 @@
         name="hr.payroll.payslip.run.xls" file="custom_hr_payroll/report/hr_payslip_run.mako"
         usage="default" string="导出到excel" report_type='mako2html' header='0' />
     </data>
-</openerp>
+</openerp>cat /home/openerp/openerp/openobject-server/shared/pids/gunicorn.pid

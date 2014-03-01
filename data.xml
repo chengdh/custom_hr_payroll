@@ -141,7 +141,10 @@
       <field name="category_id" ref="hr_payroll.GROSS"/>
       <field name="condition_select">none</field>
       <field name="amount_select">code</field>
-      <field name="amount_python_compute">result = inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(inputs.WORKED_DAYS.amount - inputs.TRAIL_DAYS.amount)*(contract.wage+inputs.YEAR_SALARY.amount)/30 +  categories.ALW</field>
+      <field name="amount_python_compute">
+        <!--上够26天全部工资,否则按每日工资扣除或添加-->
+        result = inputs.YEAR_SALARY.amount +contract.wage +  categories.ALW if inputs.WORKED_DAYS.amount == 26 else  inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(inputs.WORKED_DAYS.amount - inputs.TRAIL_DAYS.amount)*(contract.wage + inputs.YEAR_SALARY.amount)/30 +  categories.ALW
+      </field>
     </record>
 
 

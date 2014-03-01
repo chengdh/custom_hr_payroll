@@ -2,6 +2,7 @@
 #重写hr_payroll,用于工资表显示
 from openerp.osv import fields, osv
 import logging
+import math
 
 _logger = logging.getLogger(__name__)
 
@@ -166,9 +167,9 @@ class hr_payslip(osv.osv):
     self.compute_sheet(cr,uid,ids,context)
     rs = self.read(cr,uid,ids,context)[0]
     res = {
-        "alw_disp"     : rs['alw'],
-        "gross_disp"   : rs['gross'],
-        "ded_disp"     : rs['ded'],
-        "net_disp"     : rs['net'],
+        "alw_disp"     : math.floor(rs['alw']),
+        "gross_disp"   : math.floor(rs['gross']),
+        "ded_disp"     : math.floor(rs['ded']),
+        "net_disp"     : math.floor(rs['net']),
         }
     return {"value" : res}
