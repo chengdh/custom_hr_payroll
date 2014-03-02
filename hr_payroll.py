@@ -1,8 +1,10 @@
 #coding: utf-8
 #重写hr_payroll,用于工资表显示
 from openerp.osv import fields, osv
-import logging
 import math
+from datetime import datetime
+import openerp.tools as tools
+import logging
 
 _logger = logging.getLogger(__name__)
 
@@ -33,6 +35,19 @@ class hr_payslip(osv.osv):
 
         return res
 
+  def _cal_full_worked_days(self, cr, uid, ids, name, args, context):
+    '''
+    计算当月全勤天数,当月全勤天数 = 当月天数 - 3
+    '''
+    if not ids: return {}
+    res = {}
+    for payslip in self.browse(cr, uid, ids, context=context):
+      d_to = datetime.strptime(payslip.date_to,tools.DEFAULT_SERVER_DATE_FORMAT)
+      d_from = datetime.strptime(payslip.date_from,tools.DEFAULT_SERVER_DATE_FORMAT)
+      month_days = (d_to - d_from).days
+      res[payslip.id] = month_days - 3 + 1
+
+    return res
 
   _columns = {
     #员工职务
@@ -108,6 +123,8 @@ class hr_payslip(osv.osv):
     #实发工资
     "net" : fields.function(_cal_salary_detail,method=True,multi='detail',string="实发工资",type='float',digits=(10,2)),
     "net_disp" : fields.float(string="实发工资",digits=(10,2)),
+    #当月全勤天数,当月天数-3
+    "full_worked_days" : fields.function(_cal_full_worked_days,method=True,string="全勤天数",type='integer'),
   }
 
   _defaults={
