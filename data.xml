@@ -142,9 +142,7 @@
       <field name="condition_select">none</field>
       <field name="amount_select">code</field>
       <!--上够全勤可得全部工资,否则按每日工资扣除-->
-      <field name="amount_python_compute">
-        result =inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(30 - inputs.TRAIL_DAYS.amount)*(contract.wage + inputs.YEAR_SALARY.amount)/30 +  categories.ALW if inputs.WORKED_DAYS.amount >= payslip.full_worked_days else  inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(30 - (payslip.full_worked_days -inputs.WORKED_DAYS.amount) - inputs.TRAIL_DAYS.amount)*(contract.wage + inputs.YEAR_SALARY.amount)/30 +  categories.ALW
-      </field>
+      <field name="amount_python_compute">result =inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(30 - inputs.TRAIL_DAYS.amount)*(contract.wage + inputs.YEAR_SALARY.amount)/30 +  categories.ALW if inputs.WORKED_DAYS.amount >= payslip.full_worked_days else  inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(30 - (payslip.full_worked_days -inputs.WORKED_DAYS.amount) - inputs.TRAIL_DAYS.amount)*(contract.wage + inputs.YEAR_SALARY.amount)/30 +  categories.ALW</field>
     </record>
 
 
@@ -158,9 +156,7 @@
       <field name="amount_select">code</field>
       <!--如本月全勤,则旷工扣=日工资*3 请假扣=日工资*1-->
       <!--如本月未全勤,则旷工扣=日工资*2 请假扣=0 因计算应发工资时已扣除-->
-      <field name="amount_python_compute">
-        result = (inputs.LATE.amount + inputs.NO_SIGN.amount)*5 +inputs.ABSENT_DAYS.amount*3*(contract.wage+inputs.YEAR_SALARY.amount)/30 + inputs.LEAVE_DAYS.amount*(contract.wage+inputs.YEAR_SALARY.amount)/30 +inputs.PUNISH_FEE.amount + inputs.CLOTH_FEE.amount + inputs.CLASS_FEE.amount + inputs.OTHER_DED.amount if inputs.WORKED_DAYS.amount >= payslip.full_worked_days else (inputs.LATE.amount + inputs.NO_SIGN.amount)*5 +inputs.ABSENT_DAYS.amount*2*(contract.wage+inputs.YEAR_SALARY.amount)/30  +inputs.PUNISH_FEE.amount + inputs.CLOTH_FEE.amount + inputs.CLASS_FEE.amount + inputs.OTHER_DED.amount
-      </field>
+      <field name="amount_python_compute">result = (inputs.LATE.amount + inputs.NO_SIGN.amount)*5 +inputs.ABSENT_DAYS.amount*3*(contract.wage+inputs.YEAR_SALARY.amount)/30 + inputs.LEAVE_DAYS.amount*(contract.wage+inputs.YEAR_SALARY.amount)/30 +inputs.PUNISH_FEE.amount + inputs.CLOTH_FEE.amount + inputs.CLASS_FEE.amount + inputs.OTHER_DED.amount if inputs.WORKED_DAYS.amount >= payslip.full_worked_days else (inputs.LATE.amount + inputs.NO_SIGN.amount)*5 +inputs.ABSENT_DAYS.amount*2*(contract.wage+inputs.YEAR_SALARY.amount)/30  +inputs.PUNISH_FEE.amount + inputs.CLOTH_FEE.amount + inputs.CLASS_FEE.amount + inputs.OTHER_DED.amount</field>
     </record>
 
     <!--迟到早退-->
