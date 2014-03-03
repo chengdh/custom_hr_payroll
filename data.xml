@@ -142,7 +142,7 @@
       <field name="condition_select">none</field>
       <field name="amount_select">code</field>
       <!--上够全勤可得全部工资,否则按每日工资扣除-->
-      <field name="amount_python_compute">result =inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(30 - inputs.TRAIL_DAYS.amount)*(contract.wage + inputs.YEAR_SALARY.amount)/30 +  categories.ALW if inputs.WORKED_DAYS.amount >= payslip.full_worked_days else  inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(30 - (payslip.full_worked_days -inputs.WORKED_DAYS.amount) - inputs.TRAIL_DAYS.amount)*(contract.wage + inputs.YEAR_SALARY.amount)/30 +  categories.ALW</field>
+      <field name="amount_python_compute">result =inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(30 - inputs.TRAIL_DAYS.amount)*(contract.wage + inputs.YEAR_SALARY.amount)/30 +  categories.ALW if inputs.WORKED_DAYS.amount >= payslip.full_worked_days - 5 else  inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(inputs.WORKED_DAYS.amount - inputs.TRAIL_DAYS.amount)*(contract.wage + inputs.YEAR_SALARY.amount)/30 +  categories.ALW</field>
     </record>
 
 
