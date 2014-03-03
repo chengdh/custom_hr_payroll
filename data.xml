@@ -148,7 +148,7 @@
            实勤天数 >= 当月天数 - 8 按照30 - 实勤天数算工资
            实勤天数 < 当月天数 -8 按照实际上班天数计算工资
       -->
-      <field name="amount_python_compute">result = inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(inputs.WORKED_DAYS.amount - inputs.TRAIL_DAYS.amount)*(contract.wage + inputs.YEAR_SALARY.amount)/30 +  categories.ALW if inputs.TRAIL_DAYS.amount > 0 else inputs.YEAR_SALARY.amount + contract.wage +  categories.ALW if  inputs.WORKED_DAYS.amount >= payslip.full_worked_days - 5 else inputs.WORKED_DAYS.amount*(contract.wage + inputs.YEAR_SALARY.amount)/30 +  categories.ALW</field>
+      <field name="amount_python_compute">result = inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(inputs.WORKED_DAYS.amount - inputs.TRAIL_DAYS.amount)*(contract.wage + inputs.YEAR_SALARY.amount)/30 +  categories.ALW if inputs.TRAIL_DAYS.amount > 0 else inputs.YEAR_SALARY.amount + contract.wage +  categories.ALW if  inputs.WORKED_DAYS.amount >= payslip.full_worked_days - 12 else inputs.WORKED_DAYS.amount*(contract.wage + inputs.YEAR_SALARY.amount)/30 +  categories.ALW</field>
     </record>
 
 
