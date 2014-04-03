@@ -8,7 +8,7 @@
     'author': 'chengdh (cheng.donghui@gmail.com)',
     'website': '',
     'license': 'AGPL-3',
-    'depends': ['hr_payroll', 'web'],
+    'depends': ['hr_payroll','hr_expense','web'],
     'init_xml': [],
     'update_xml': ['data.xml','hr_payroll_view.xml','report.xml'],
     'demo_xml': [],
