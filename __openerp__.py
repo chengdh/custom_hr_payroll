@@ -17,6 +17,7 @@
     'web':True,
     'css': [],
     'js': [
+      "static/lib/jquery.mousewheel.js",
       "static/lib/jquery.fixedheadertable.min.js",
       "static/src/js/custom_hr_payroll.js",
       ],
