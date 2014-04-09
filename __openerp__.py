@@ -15,9 +15,11 @@
     'active': False,
     'installable': True,
     'web':True,
-    'css': [],
+    'css': [
+      "src/css/defaultTheme.css",
+      ],
     'js': [
-      "static/lib/jquery.mousewheel.js",
+      #"static/lib/jquery.mousewheel.js",
       "static/lib/jquery.fixedheadertable.min.js",
       "static/src/js/custom_hr_payroll.js",
       ],
