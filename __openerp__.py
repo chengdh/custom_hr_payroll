@@ -16,7 +16,10 @@
     'installable': True,
     'web':True,
     'css': [],
-    'js': [],
+    'js': [
+      "static/lib/jquery.fixedheadertable.min.js",
+      "static/src/js/custom_hr_payroll.js",
+      ],
     'xml': [],
 }
 
