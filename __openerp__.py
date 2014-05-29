@@ -16,7 +16,7 @@
     'installable': True,
     'web':True,
     'css': [
-      "src/css/defaultTheme.css",
+      "static/src/css/defaultTheme.css",
       ],
     'js': [
       #"static/lib/jquery.mousewheel.js",
