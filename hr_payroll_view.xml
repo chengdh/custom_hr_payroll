@@ -19,8 +19,8 @@
       <field name="arch" type="xml">
         <tree position='replace'>
           <tree colors="blue:state in ('confirm','hr_check','accont_check');black:state == 'new';gray:state == 'cancel'" string="Payslips" editable="top">
-            <field name="employee_id"/>
-            <field name="job_id"/>
+            <field name="employee_id" readonly="1"/>
+            <field name="job_id" readonly="1"/>
             <field name="basic" sum='Total Basic'/>
             <field name="year_salary" sum='Total Year Salary'/>
             <field name="job_input" sum='job_input' on_change="on_change_input('job',job_input)" />
@@ -51,6 +51,38 @@
             <field name="full_worked_days" invisible="1"/>
           </tree>
         </tree>
+      </field>
+    </record>
+    <record id="hr_payslip_run_form" model="ir.ui.view">
+      <field name="name">hr.payslip.run.form.inherit</field>
+      <field name="model">hr.payslip.run</field>
+      <field name="priority" eval="10"/>
+      <field name="arch" type="xml">
+        <form string="Payslips Batches" version="7.0">
+          <header>
+            <button name="close_payslip_run" type="object" string="Close" states="draft" class="oe_highlight"/>
+            <button name="%(hr_payroll.action_hr_payslip_by_employees)d" type="action" states="draft" string="Generate Payslips" class="oe_highlight"/>
+            <button string="Set to Draft" name="draft_payslip_run" type="object" states="close" />
+            <field name="state" widget="statusbar"/>
+          </header>
+          <sheet>
+            <label for="name" class="oe_edit_only"/>
+            <h1>
+              <field name="name"/>
+            </h1>
+            <h2>
+              Period from 
+              <field name="date_start"/> 
+              to 
+              <field name="date_end"/>
+            </h2>
+            <group col="4">
+              <field name="credit_note"/>
+            </group>
+            <separator string="Payslips"/>
+            <field name="slip_ids"/>
+          </sheet>
+        </form>
       </field>
     </record>
   </data>

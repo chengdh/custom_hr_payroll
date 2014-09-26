@@ -27,10 +27,9 @@ class hr_contract(osv.osv):
     _inherit = 'hr.contract'
     _description = 'Contract'
     _columns = {
-        'year_salary': fields.float('year_salart', digits=(16,2), required=False, help="year salary of the employee"),
+        'year_salary': fields.float('year_salary', digits=(16,2), required=False, help="year salary of the employee"),
         }
 
     _defaults = {
         'year_salary' : 0.0,
         }
- 

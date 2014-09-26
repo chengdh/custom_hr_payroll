@@ -25,6 +25,7 @@ class hr_payslip(osv.osv):
           lines_dict = {l.code.lower() : l.total for l in payslip.line_ids}
           res[payslip.id] = lines_dict
 
+          _logger.debug("%s: "%lines_dict )
           ipt_dict = {ipt.code.lower() : ipt.amount for ipt in payslip.input_line_ids}
           res[payslip.id].update(ipt_dict)
 
@@ -33,6 +34,8 @@ class hr_payslip(osv.osv):
           #  res[payslip.id]['worked_days'] = payslip.worked_days_line_ids[0].number_of_days
           #else:
           #  res[payslip.id]['worked_days'] = 0
+
+        _logger.debug("%s: %s"%(name,res) )
 
         return res
 
