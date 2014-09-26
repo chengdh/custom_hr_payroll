@@ -16,6 +16,7 @@ class hr_payslip(osv.osv):
   _name = 'hr.payslip'
   _inherit = 'hr.payslip'
   _description = 'Pay Slip'
+  _order = "order_by"
 
   def _cal_salary_detail(self, cr, uid, ids, name, args, context):
         if not ids: return {}
@@ -52,11 +53,11 @@ class hr_payslip(osv.osv):
   _columns = {
     #员工职务
     'job_id': fields.related('employee_id','job_id',type="many2one",relation="hr.job",string="职位",store=False),
+    'order_by': fields.related('employee_id','job_id',"id",type="integer",string="职位",store=True),
     #基本工资
     "basic" : fields.function(_cal_salary_detail,method=True,multi='detail',string="基本工资",type='float',digits=(10,2)),
     #工龄工资
     "year_salary" : fields.function(_cal_salary_detail,method=True,multi='detail',string="工龄工资",type='float',digits=(10,2)),
-    "year_salary_input" : fields.float(string="工龄工资",digits=(10,2)),
     #试用天数
     "trail_days" : fields.function(_cal_salary_detail,method=True,multi='detail',string="试用天数",type='float',digits=(10,2)),
     "trail_days_input" : fields.integer(string="试用天数"),
@@ -128,8 +129,6 @@ class hr_payslip(osv.osv):
   }
 
   _defaults={
-      #工龄工资
-    "year_salary_input" : 0, 
     #试用天数
     "trail_days_input" : 0,
     #实勤天数

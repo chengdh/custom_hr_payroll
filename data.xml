@@ -40,6 +40,16 @@
       <field name="amount_python_compute">result = contract.wage</field>
     </record>
 
+    <!--工龄工资-->
+    <record id='hr_rule_year_salary' model='hr.salary.rule'>
+      <field name='name'>工龄工资</field>
+      <field name='code'>YEAR_SALARY</field>
+      <field name="category_id" ref="hr_payroll.BASIC"/>
+      <field name="condition_select">none</field>
+      <field name="amount_select">code</field>
+      <field name="amount_python_compute">result = contract.year_salary</field>
+    </record>
+
 
 
     <!-- Salary Rules -->
@@ -51,7 +61,7 @@
       <field name="category_id" ref="hr_payroll.ALW"/>
       <field name="condition_select">none</field>
       <field name="amount_select">code</field>
-      <field name="amount_python_compute">result = inputs.JOB.amount + inputs.WORK_PRIZE.amount + inputs.PRP.amount + inputs.OT.amount*(contract.wage+inputs.YEAR_SALARY.amount)/30 + inputs.DC.amount + inputs.CC.amount +inputs.OS.amount + inputs.RL.amount</field>
+      <field name="amount_python_compute">result = inputs.JOB.amount + inputs.WORK_PRIZE.amount + inputs.PRP.amount + inputs.OT.amount*(contract.wage+contract.year_salary)/30 + inputs.DC.amount + inputs.CC.amount +inputs.OS.amount + inputs.RL.amount</field>
     </record>
 
     <!--定义Input-->
@@ -62,12 +72,6 @@
       <field name='input_id' ref='hr_salary_rule_alw' />
     </record>
 
-    <!--工龄工资-->
-    <record id='hr_rule_input_year_salary' model='hr.rule.input'>
-      <field name='name'>工龄工资</field>
-      <field name='code'>YEAR_SALARY</field>
-      <field name='input_id' ref='hr_salary_rule_alw' />
-    </record>
     <!--岗位津贴-->
     <record id='hr_rule_input_job' model='hr.rule.input'>
       <field name='name'>岗位津贴</field>
@@ -148,7 +152,7 @@
            实勤天数 >= 当月天数 - 8 按照30 - 实勤天数算工资
            实勤天数 < 当月天数 -8 按照实际上班天数计算工资
       -->
-      <field name="amount_python_compute">result = inputs.YEAR_SALARY.amount + inputs.TRAIL_DAYS.amount*20 +(inputs.WORKED_DAYS.amount - inputs.TRAIL_DAYS.amount)*(contract.wage + inputs.YEAR_SALARY.amount)/30 +  categories.ALW if inputs.TRAIL_DAYS.amount > 0 else inputs.YEAR_SALARY.amount + contract.wage +  categories.ALW if  inputs.WORKED_DAYS.amount >= payslip.full_worked_days - 12 else inputs.WORKED_DAYS.amount*(contract.wage + inputs.YEAR_SALARY.amount)/30 +  categories.ALW</field>
+      <field name="amount_python_compute">result = contract.year_salary + inputs.TRAIL_DAYS.amount*20 +(inputs.WORKED_DAYS.amount - inputs.TRAIL_DAYS.amount)*(contract.wage + contract.year_salary)/30 +  categories.ALW if inputs.TRAIL_DAYS.amount > 0 else contract.year_salary + contract.wage +  categories.ALW if  inputs.WORKED_DAYS.amount >= payslip.full_worked_days - 12 else inputs.WORKED_DAYS.amount*(contract.wage + contract.year_salary)/30 +  categories.ALW</field>
     </record>
 
 
@@ -162,7 +166,7 @@
       <field name="amount_select">code</field>
       <!--如本月全勤,则旷工扣=日工资*3 请假扣=日工资*1-->
       <!--如本月未全勤,则旷工扣=日工资*2 请假扣=0 因计算应发工资时已扣除-->
-      <field name="amount_python_compute">result = (inputs.LATE.amount + inputs.NO_SIGN.amount)*5 +inputs.ABSENT_DAYS.amount*3*(contract.wage+inputs.YEAR_SALARY.amount)/30 + inputs.LEAVE_DAYS.amount*(contract.wage+inputs.YEAR_SALARY.amount)/30 +inputs.PUNISH_FEE.amount + inputs.CLOTH_FEE.amount + inputs.CLASS_FEE.amount + inputs.OTHER_DED.amount if inputs.WORKED_DAYS.amount >= payslip.full_worked_days - 9 else (inputs.LATE.amount + inputs.NO_SIGN.amount)*5 +inputs.ABSENT_DAYS.amount*2*(contract.wage+inputs.YEAR_SALARY.amount)/30  +inputs.PUNISH_FEE.amount + inputs.CLOTH_FEE.amount + inputs.CLASS_FEE.amount + inputs.OTHER_DED.amount</field>
+      <field name="amount_python_compute">result = (inputs.LATE.amount + inputs.NO_SIGN.amount)*5 +inputs.ABSENT_DAYS.amount*3*(contract.wage+contract.year_salary)/30 + inputs.LEAVE_DAYS.amount*(contract.wage+contract.year_salary)/30 +inputs.PUNISH_FEE.amount + inputs.CLOTH_FEE.amount + inputs.CLASS_FEE.amount + inputs.OTHER_DED.amount if inputs.WORKED_DAYS.amount >= payslip.full_worked_days - 9 else (inputs.LATE.amount + inputs.NO_SIGN.amount)*5 +inputs.ABSENT_DAYS.amount*2*(contract.wage+contract.year_salary)/30  +inputs.PUNISH_FEE.amount + inputs.CLOTH_FEE.amount + inputs.CLASS_FEE.amount + inputs.OTHER_DED.amount</field>
     </record>
 
     <!--迟到早退-->

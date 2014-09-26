@@ -10,7 +10,7 @@
     'license': 'AGPL-3',
     'depends': ['hr_payroll','hr_expense','web'],
     'init_xml': [],
-    'update_xml': ['data.xml','hr_payroll_view.xml','report.xml'],
+    'update_xml': ['data.xml','hr_payroll_view.xml','report.xml','hr_contract_view.xml'],
     'demo_xml': [],
     'active': False,
     'installable': True,
