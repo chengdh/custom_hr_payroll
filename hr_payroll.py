@@ -8,6 +8,13 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+class hr_payslip_run(osv.osv):
+    _name = 'hr.payslip.run'
+    _inherit = 'hr.payslip.run'
+    _columns = {
+        'slip_ids': fields.one2many('hr.payslip', 'payslip_run_id', 'Payslips',limit=10, required=False, readonly=True, states={'draft': [('readonly', False)]}),
+    }
+
 class hr_payslip(osv.osv):
   '''
   工资条
