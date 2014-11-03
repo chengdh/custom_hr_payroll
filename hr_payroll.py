@@ -29,11 +29,11 @@ class hr_payslip(osv.osv):
         if not ids: return {}
         res = {}
         for payslip in self.browse(cr, uid, ids, context=context):
-          lines_dict = {l.code.lower() : l.total for l in payslip.line_ids}
+          lines_dict = {l.code.lower() : round(l.total,1) for l in payslip.line_ids}
           res[payslip.id] = lines_dict
 
           _logger.debug("%s: "%lines_dict )
-          ipt_dict = {ipt.code.lower() : ipt.amount for ipt in payslip.input_line_ids}
+          ipt_dict = {ipt.code.lower() : rount(ipt.amount,1) for ipt in payslip.input_line_ids}
           res[payslip.id].update(ipt_dict)
 
           #工作时长
