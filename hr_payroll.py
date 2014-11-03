@@ -12,7 +12,7 @@ class hr_payslip_run(osv.osv):
     _name = 'hr.payslip.run'
     _inherit = 'hr.payslip.run'
     _columns = {
-        'slip_ids': fields.one2many('hr.payslip', 'payslip_run_id', 'Payslips',limit=10, required=False, readonly=True, states={'draft': [('readonly', False)]}),
+        'slip_ids': fields.one2many('hr.payslip', 'payslip_run_id', 'Payslips',required=False, readonly=True, states={'draft': [('readonly', False)]}),
     }
 
 class hr_payslip(osv.osv):
@@ -65,74 +65,74 @@ class hr_payslip(osv.osv):
     'job_id': fields.related('employee_id','job_id',type="many2one",relation="hr.job",string="职位",store=False),
     'order_by': fields.related('employee_id','job_id',"id",type="integer",string="职位",store=True),
     #基本工资
-    "basic" : fields.function(_cal_salary_detail,method=True,multi='detail',string="基本工资",type='float',digits=(10,2)),
+    "basic" : fields.function(_cal_salary_detail,method=True,multi='detail',string="基本工资",type='float',digits=(10,1)),
     #工龄工资
-    "year_salary" : fields.function(_cal_salary_detail,method=True,multi='detail',string="工龄工资",type='float',digits=(10,2)),
+    "year_salary" : fields.function(_cal_salary_detail,method=True,multi='detail',string="工龄工资",type='float',digits=(10,1)),
     #试用天数
-    "trail_days" : fields.function(_cal_salary_detail,method=True,multi='detail',string="试用天数",type='float',digits=(10,2)),
+    "trail_days" : fields.function(_cal_salary_detail,method=True,multi='detail',string="试用天数",type='float',digits=(10,1)),
     "trail_days_input" : fields.integer(string="试用天数"),
     #实勤天数
-    "worked_days" : fields.function(_cal_salary_detail,method=True,multi='detail',string="实勤天数",type='float',digits=(10,2)),
+    "worked_days" : fields.function(_cal_salary_detail,method=True,multi='detail',string="实勤天数",type='float',digits=(10,1)),
     "worked_days_input" : fields.integer(string="实勤天数"),
     #全勤奖金
-    "work_prize" : fields.function(_cal_salary_detail,method=True,multi='detail',string="全勤奖金",type='float',digits=(10,2)),
+    "work_prize" : fields.function(_cal_salary_detail,method=True,multi='detail',string="全勤奖金",type='float',digits=(10,1)),
     "work_prize_input" : fields.float(string="全勤奖金",digits=(10,2)),
     #绩效工资
-    "prp" : fields.function(_cal_salary_detail,method=True,multi='detail',string="绩效工资",type='float',digits=(10,2)),
+    "prp" : fields.function(_cal_salary_detail,method=True,multi='detail',string="绩效工资",type='float',digits=(10,1)),
     "prp_input" : fields.float(string="绩效工资",digits=(10,2)),
     #加班天数
-    "ot" : fields.function(_cal_salary_detail,method=True,multi='detail',string="加班天数",type='float',digits=(10,2)),
+    "ot" : fields.function(_cal_salary_detail,method=True,multi='detail',string="加班天数",type='float',digits=(10,1)),
     "ot_input" : fields.integer(string="加班天数"),
     #酒水提成
-    "dc" : fields.function(_cal_salary_detail,method=True,multi='detail',string="酒水提成",type='float',digits=(10,2)),
+    "dc" : fields.function(_cal_salary_detail,method=True,multi='detail',string="酒水提成",type='float',digits=(10,1)),
     "dc_input" : fields.float(string="酒水提成",digits=(10,2)),
     #办卡提成
-    "cc" : fields.function(_cal_salary_detail,method=True,multi='detail',string="办卡提成",type='float',digits=(10,2)),
+    "cc" : fields.function(_cal_salary_detail,method=True,multi='detail',string="办卡提成",type='float',digits=(10,1)),
     "cc_input" : fields.float(string="办卡提成",digits=(10,2)),
     #再次分配
-    "rl" : fields.function(_cal_salary_detail,method=True,multi='detail',string="再次分配",type='float',digits=(10,2)),
+    "rl" : fields.function(_cal_salary_detail,method=True,multi='detail',string="再次分配",type='float',digits=(10,1)),
     "rl_input" : fields.float(string="再次分配",digits=(10,2)),
     #其他奖励
-    "os" : fields.function(_cal_salary_detail,method=True,multi='detail',string="其他奖励",type='float',digits=(10,2)),
+    "os" : fields.function(_cal_salary_detail,method=True,multi='detail',string="其他奖励",type='float',digits=(10,1)),
     "os_input" : fields.float(string="其他奖励",digits=(10,2)),
     #岗位津贴
-    "job" : fields.function(_cal_salary_detail,method=True,multi='detail',string="岗位津贴",type='float',digits=(10,2)),
+    "job" : fields.function(_cal_salary_detail,method=True,multi='detail',string="岗位津贴",type='float',digits=(10,1)),
     "job_input" : fields.float(string="岗位津贴",digits=(10,2)),
     #津贴合计
-    "alw" : fields.function(_cal_salary_detail,method=True,multi='detail',string="津贴合计",type='float',digits=(10,2)),
+    "alw" : fields.function(_cal_salary_detail,method=True,multi='detail',string="津贴合计",type='float',digits=(10,1)),
     "alw_disp" : fields.float(string="津贴合计",digits=(10,2)),
     #应发合计
-    "gross" : fields.function(_cal_salary_detail,method=True,multi='detail',string="应发合计",type='float',digits=(10,2)),
+    "gross" : fields.function(_cal_salary_detail,method=True,multi='detail',string="应发合计",type='float',digits=(10,1)),
     "gross_disp" : fields.float(string="应发合计",digits=(10,2)),
     #迟到早退
-    "late" : fields.function(_cal_salary_detail,method=True,multi='detail',string="迟到早退",type='float',digits=(10,2)),
+    "late" : fields.function(_cal_salary_detail,method=True,multi='detail',string="迟到早退",type='float',digits=(10,1)),
     "late_input" : fields.float(string="迟到早退",digits=(10,2)),
     #未刷卡数
-    "no_sign" : fields.function(_cal_salary_detail,method=True,multi='detail',string="未刷卡数",type='float',digits=(10,2)),
+    "no_sign" : fields.function(_cal_salary_detail,method=True,multi='detail',string="未刷卡数",type='float',digits=(10,1)),
     "no_sign_input" : fields.integer(string="未刷卡数"),
     #旷工天数
-    "absent_days" : fields.function(_cal_salary_detail,method=True,multi='detail',string="旷工天数",type='float',digits=(10,2)),
+    "absent_days" : fields.function(_cal_salary_detail,method=True,multi='detail',string="旷工天数",type='float',digits=(10,1)),
     "absent_days_input" : fields.integer(string="旷工天数"),
     #请假天数
-    "leave_days" : fields.function(_cal_salary_detail,method=True,multi='detail',string="请假天数",type='float',digits=(10,2)),
+    "leave_days" : fields.function(_cal_salary_detail,method=True,multi='detail',string="请假天数",type='float',digits=(10,1)),
     "leave_days_input" : fields.integer(string="请假天数"),
     #罚单扣除
-    "punish_fee" : fields.function(_cal_salary_detail,method=True,multi='detail',string="罚单扣除",type='float',digits=(10,2)),
+    "punish_fee" : fields.function(_cal_salary_detail,method=True,multi='detail',string="罚单扣除",type='float',digits=(10,1)),
     "punish_fee_input" : fields.float(string="罚单扣除",digits=(10,2)),
     #工装扣除
-    "cloth_fee" : fields.function(_cal_salary_detail,method=True,multi='detail',string="工装扣除",type='float',digits=(10,2)),
+    "cloth_fee" : fields.function(_cal_salary_detail,method=True,multi='detail',string="工装扣除",type='float',digits=(10,1)),
     "cloth_fee_input" : fields.float(string="工装扣除",digits=(10,2)),
     #班基金扣??
-    "class_fee" : fields.function(_cal_salary_detail,method=True,multi='detail',string="班基金扣",type='float',digits=(10,2)),
+    "class_fee" : fields.function(_cal_salary_detail,method=True,multi='detail',string="班基金扣",type='float',digits=(10,1)),
     "class_fee_input" : fields.float(string="班基金扣",digits=(10,2)),
     #其他扣除
-    "other_ded" : fields.function(_cal_salary_detail,method=True,multi='detail',string="其他扣除",type='float',digits=(10,2)),
+    "other_ded" : fields.function(_cal_salary_detail,method=True,multi='detail',string="其他扣除",type='float',digits=(10,1)),
     "other_ded_input" : fields.float(string="其他扣除",digits=(10,2)),
     #扣除合计
-    "ded" : fields.function(_cal_salary_detail,method=True,multi='detail',string="扣除合计",type='float',digits=(10,2)),
+    "ded" : fields.function(_cal_salary_detail,method=True,multi='detail',string="扣除合计",type='float',digits=(10,1)),
     "ded_disp" : fields.float(string="扣除合计",digits=(10,2)),
     #实发工资
-    "net" : fields.function(_cal_salary_detail,method=True,multi='detail',string="实发工资",type='float',digits=(10,2)),
+    "net" : fields.function(_cal_salary_detail,method=True,multi='detail',string="实发工资",type='float',digits=(10,1)),
     "net_disp" : fields.float(string="实发工资",digits=(10,2)),
     #当月全勤天数,当月天数-3
     "full_worked_days" : fields.function(_cal_full_worked_days,method=True,string="全勤天数",type='integer'),
