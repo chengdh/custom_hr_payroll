@@ -152,7 +152,7 @@
            实勤天数 >= 当月天数 - 8 按照30 - 实勤天数算工资
            实勤天数 < 当月天数 -8 按照实际上班天数计算工资
       -->
-      <field name="amount_python_compute">result = contract.year_salary + inputs.TRAIL_DAYS.amount*20 +(inputs.WORKED_DAYS.amount - inputs.TRAIL_DAYS.amount)*(contract.wage + contract.year_salary)/30 +  categories.ALW if inputs.TRAIL_DAYS.amount > 0 else contract.year_salary + contract.wage +  categories.ALW if  inputs.WORKED_DAYS.amount >= payslip.full_worked_days - 12 else inputs.WORKED_DAYS.amount*(contract.wage + contract.year_salary)/30 +  categories.ALW</field>
+      <field name="amount_python_compute">result = round(contract.year_salary + inputs.TRAIL_DAYS.amount*30 +(inputs.WORKED_DAYS.amount - inputs.TRAIL_DAYS.amount)*(contract.wage + contract.year_salary)/30 +  categories.ALW if inputs.TRAIL_DAYS.amount > 0 else contract.year_salary + contract.wage +  categories.ALW if  inputs.WORKED_DAYS.amount >= payslip.full_worked_days - 12 else inputs.WORKED_DAYS.amount*(contract.wage + contract.year_salary)/30 +  categories.ALW,1)</field>
     </record>
 
 
@@ -238,7 +238,7 @@
       <field name="category_id" ref="hr_payroll.NET"/>
       <field name="condition_select">none</field>
       <field name="amount_select">code</field>
-      <field name="amount_python_compute">result =  categories.GROSS - categories.DED</field>
+      <field name="amount_python_compute">result =  round(categories.GROSS - categories.DED,1)</field>
     </record>
 
 
